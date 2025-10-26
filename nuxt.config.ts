@@ -9,6 +9,8 @@ export default defineNuxtConfig({
     '@formkit/auto-animate',
     '@nuxt/image',
     '@nuxt/icon',
-    '@nuxthub/core'
+    '@nuxthub/core',
+    '@nuxt/ui',
+    '@nuxtjs/color-mode'
   ]
 })

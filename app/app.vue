@@ -1,6 +1,17 @@
 <template>
   <div>
     <NuxtRouteAnnouncer />
-    <h1 class="text-black font-bold">Hello world!</h1>
+    <UApp>
+      <UHeader />
+      <NuxtPage />
+      <UFooter />
+    </UApp>
   </div>
 </template>
+
+
+<style>
+body {
+  overflow-x: hidden;
+}
+</style>
