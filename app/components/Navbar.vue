@@ -1,6 +1,6 @@
 <script setup lang="ts">
-
-const route = useRoute()
+import { useSession } from "~/lib/auth-client";
+const { data: session } = await useSession(useFetch);
 
 const items = ref([
   {
@@ -96,7 +96,8 @@ const items = ref([
     <UNavigationMenu :items="items"/>
 
     <template #right>
-      <UColorModeSwitch />
+      <UAvatar v-if="session" :src="session?.user?.image ?? ''" size="xl" icon="i-lucide-image"/>
+      <UButton v-else color="primary" to="/login">Login</UButton>
     </template>
   </UHeader>
 </template>

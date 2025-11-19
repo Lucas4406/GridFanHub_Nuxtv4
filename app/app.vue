@@ -10,10 +10,11 @@
         </NuxtLayout>
       </UMain>
 
-      <UFooter class="dark:bg-stone-900" />
+      <Footer />
     </UApp>
   </div>
 </template>
 
 <script setup lang="ts">
+import Footer from "~/components/Footer.vue";
 </script>
