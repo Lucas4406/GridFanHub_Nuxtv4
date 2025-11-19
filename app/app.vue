@@ -2,16 +2,18 @@
   <div>
     <NuxtRouteAnnouncer />
     <UApp>
-      <UHeader />
-      <NuxtPage />
-      <UFooter />
+      <Navbar />
+
+      <UMain>
+        <NuxtLayout>
+          <NuxtPage />
+        </NuxtLayout>
+      </UMain>
+
+      <UFooter class="dark:bg-stone-900" />
     </UApp>
   </div>
 </template>
 
-
-<style>
-body {
-  overflow-x: hidden;
-}
-</style>
+<script setup lang="ts">
+</script>

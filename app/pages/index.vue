@@ -1,32 +1,25 @@
 <template>
-  <div>
-    <h1>Color mode: {{ $colorMode.value }}</h1>
-    <select v-model="$colorMode.preference">
-      <option value="system">System</option>
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
-      <option value="sepia">Sepia</option>
-    </select>
-  </div>
+  <UPage>
+    <UPageHeader title="Home Page" subtitle="Welcome to the new GridFanHub website!"/>
+    <UPageBody>
+      <UPageCard
+          :title="nextRace"
+          description="Nuxt UI integrates with latest Tailwind CSS v4, bringing significant improvements."
+          icon="i-simple-icons-tailwindcss"
+          orientation="horizontal"
+          highlight
+          highlight-color="primary"
+      >
+        <img :src="data.circuitSmallImage.url" alt="Tailwind CSS" class="w-full" />
+      </UPageCard>
+    </UPageBody>
+
+  </UPage>
 </template>
 
-<script setup>
-const colorMode = useColorMode()
-
-console.log(colorMode.preference)
+<script setup lang="ts">
+const runtimeConfig = useRuntimeConfig()
+const {data} = await useFetch(`${runtimeConfig.public.cloudflareProxyBase}/v1/event-tracker`)
+const nextRace = `Next race - ${data.value?.race.meetingName}`
+console.log(data.value)
 </script>
-
-<style>
-body {
-  background-color: #fff;
-  color: rgba(0,0,0,0.8);
-}
-.dark-mode body {
-  background-color: #091a28;
-  color: #ebf4f1;
-}
-.sepia-mode body {
-  background-color: #f1e7d0;
-  color: #433422;
-}
-</style>

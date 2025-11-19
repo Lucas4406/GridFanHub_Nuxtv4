@@ -3,7 +3,6 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   modules: [
-    '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate',
     '@formkit/auto-animate',
@@ -11,6 +10,15 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxthub/core',
     '@nuxt/ui',
-    '@nuxtjs/color-mode'
-  ]
+  ],
+    css: ['~/assets/css/main.css'],
+    runtimeConfig: {
+        // The private keys which are only available server-side
+        apiSecret: '123',
+        // Keys within public are also exposed client-side
+        public: {
+            apiBase: 'http://localhost:3000',
+            cloudflareProxyBase: 'https://proxy.gridfanhub.com'
+        },
+    },
 })
