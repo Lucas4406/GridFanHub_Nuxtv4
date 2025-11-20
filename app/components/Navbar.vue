@@ -96,8 +96,7 @@ const items = ref([
     <UNavigationMenu :items="items"/>
 
     <template #right>
-      <UAvatar v-if="session" :src="session?.user?.image ?? ''" size="xl" icon="i-lucide-image"/>
-      <UButton v-else color="primary" to="/login">Login</UButton>
+      <NavbarAvatarDpdn :profileData="session ?? null" />
     </template>
   </UHeader>
 </template>
