@@ -17,7 +17,7 @@ export default defineNuxtConfig({
         apiSecret: '123',
         // Keys within public are also exposed client-side
         public: {
-            apiBase: 'http://localhost:3000',
+            apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000',
             cloudflareProxyBase: 'https://proxy.gridfanhub.com'
         },
     },
