@@ -99,7 +99,7 @@ const itemsWithActive = computed(() =>
 </script>
 
 <template>
-  <UHeader>
+  <UHeader :toggle="{ size: 'xl' }">
 
     <template #title>
       <img src="/Logo-transparent-456x139.png"  class="h-18 w-auto"  alt="GridFanHub logo"/>
@@ -109,6 +109,10 @@ const itemsWithActive = computed(() =>
 
     <template #right>
       <NavbarAvatarDpdn :profileData="session ?? null" class="cursor-pointer" />
+    </template>
+
+    <template #body>
+      <UNavigationMenu orientation="vertical" :items="itemsWithActive" />
     </template>
   </UHeader>
 </template>
