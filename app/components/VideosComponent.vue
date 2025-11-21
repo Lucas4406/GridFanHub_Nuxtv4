@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const runtimeConfig = useRuntimeConfig()
-const { data } = await useFetch(`${runtimeConfig.public.cloudflareProxyBase}/v1/video-assets/videos`)
+const videos = useVideosStore()
+await callOnce(videos.fetch)
 const authors = ref([
   {
     name: 'formula1.com',
@@ -15,7 +15,7 @@ const authors = ref([
   <UPageHeader title="Latest Videos" description="Stay updated with the latest videos." />
   <UBlogPosts>
     <UBlogPost
-        v-for="article in data.videos.slice(0, 9)"
+        v-for="article in videos.videosArray"
         :key="article.id"
         :title="article.caption"
         :description="article.description"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const runtimeConfig = useRuntimeConfig()
-const { data } = await useFetch(`${runtimeConfig.public.cloudflareProxyBase}/v1/editorial/articles?limit=9`)
+const news = useNewsStore()
+await callOnce(news.fetch)
 const authors = ref([
   {
     name: 'formula1.com',
@@ -15,7 +15,7 @@ const authors = ref([
   <UPageHeader title="Latest News" description="Stay updated with the latest news articles." />
   <UBlogPosts>
         <UBlogPost
-          v-for="article in data.items"
+          v-for="article in news.newsArray"
           :key="article.id"
           :title="article.title"
           :image="article.thumbnail.image.url"

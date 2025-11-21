@@ -2,6 +2,8 @@
 const runtimeConfig = useRuntimeConfig()
 const { data } = await useFetch(`${runtimeConfig.public.apiBase}/laps-statistics`)
 
+const season = useSeasonStore()
+
 
 const progressValue = ref(Number(data.value?.lapsProgress.replace('%', '')))
 
@@ -10,7 +12,7 @@ const progressValue = ref(Number(data.value?.lapsProgress.replace('%', '')))
 <template>
   <UPageCard
       :title="`${data?.racedLaps} of ${data?.totalLapsInSeason} laps completed`"
-      description="2025 Season"
+      :description="`${season.seasonYear} Season`"
       orientation="vertical"
       variant="soft"
       highlight

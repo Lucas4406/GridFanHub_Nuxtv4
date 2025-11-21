@@ -2,11 +2,13 @@
 import { useSession } from "~/lib/auth-client";
 const { data: session } = await useSession(useFetch);
 
+const season = useSeasonStore()
+
 const items = ref([
   {
     label: 'Schedule',
     icon: 'i-lucide-calendar',
-    to: '/schedule',
+    to: `/schedule/${season.seasonYear}`,
   },
   {
     label: 'Latest',
