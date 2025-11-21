@@ -4,4 +4,5 @@
 
 :root {
     --ui-primary: var(--color-red-500);
+    --ui-container: 100rem; /* var(--container-7xl) */
 }

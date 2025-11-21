@@ -19,7 +19,7 @@ const nextRaceDescription = `${data.value?.race.roundText} - ${new Date(data.val
       highlight
       highlight-color="primary"
   >
-    <img :src="data.circuitSmallImage.url" alt="Tailwind CSS" class="w-full" />
+    <NuxtImg :src="data.circuitSmallImage.url" alt="Tailwind CSS" class="w-full" />
   </UPageCard>
 </template>
 
