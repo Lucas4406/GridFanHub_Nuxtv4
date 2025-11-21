@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const runtimeConfig = useRuntimeConfig()
-const {data} = await useFetch(`${runtimeConfig.public.cloudflareProxyBase}/v1/event-tracker`)
+const {data} = await useFetch(`${runtimeConfig.public.cloudflareProxyBase}/v1/event-tracker`, {
+  headers: {
+    "X-Cache-Duration": 120
+  }
+})
 const nextRace = `Next - ${data.value?.race.meetingName}`
 const nextRaceDescription = `${data.value?.race.roundText} - ${new Date(data.value?.race.meetingStartDate).toLocaleString()} `
 </script>
