@@ -1,9 +1,10 @@
 export default defineAppConfig({
   ui: {
       header: {
-          slots:{
-              root: "sticky"
-          }
-      }
-  },
+          root: "sticky"
+      },
+      card: {
+          root: "ring-2 ring-primary"
+      },
+  }
 })

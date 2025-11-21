@@ -9,21 +9,20 @@ const items = ref([
     to: '/schedule',
   },
   {
-    label: 'News',
+    label: 'Latest',
     icon: 'i-lucide-database',
-    to: '/latest-news',
     children: [
       {
         label: 'Latest news',
         icon: 'i-lucide-database',
         description: 'Read the latest headlines',
-        to: '/latest-news'
+        to: '/latest/news'
       },
       {
         label: 'Latest videos',
         icon: 'i-lucide-video',
         description: 'View the latest videos',
-        to: '/latest-videos'
+        to: '/latest/videos'
       },
     ]
   },
@@ -31,7 +30,6 @@ const items = ref([
     label: 'Components',
     icon: 'i-lucide-box',
     to: '/docs/components',
-    active: true,
     children: [
       {
         label: 'Link',
@@ -84,6 +82,18 @@ const items = ref([
     disabled: true
   }
 ])
+
+const route = useRoute()
+
+const itemsWithActive = computed(() =>
+    items.value.map(item => {
+      if (item.children) {
+        const isChildActive = item.children.some(child => child.to === route.path)
+        return { ...item, active: isChildActive }
+      }
+      return { ...item, active: item.to === route.path }
+    })
+)
 </script>
 
 <template>
@@ -93,10 +103,10 @@ const items = ref([
       <img src="/Logo-transparent-456x139.png"  class="h-18 w-auto"  alt="GridFanHub logo"/>
     </template>
 
-    <UNavigationMenu :items="items"/>
+    <UNavigationMenu :items="itemsWithActive"/>
 
     <template #right>
-      <NavbarAvatarDpdn :profileData="session ?? null" />
+      <NavbarAvatarDpdn :profileData="session ?? null" class="cursor-pointer" />
     </template>
   </UHeader>
 </template>
