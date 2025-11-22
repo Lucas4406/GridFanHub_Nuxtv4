@@ -13,6 +13,7 @@ const items = ref([
   {
     label: 'Latest',
     icon: 'i-lucide-database',
+    to: '/latest/news',
     children: [
       {
         label: 'Latest news',

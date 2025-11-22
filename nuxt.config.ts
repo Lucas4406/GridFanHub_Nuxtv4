@@ -21,4 +21,17 @@ export default defineNuxtConfig({
             cloudflareProxyBase: 'https://proxy.gridfanhub.com'
         },
     },
+    app: {
+        head: {
+            title: 'GridFanHub - the new website where you can find the latest news and data about Formula1', // default fallback title
+            htmlAttrs: {
+                lang: 'en',
+            },
+            link: [
+                {   rel: 'icon', type: 'image/x-icon', href: '/favicon.ico',
+                    rel: 'apple-touch-icon', type: 'image/x-icon', href: '/favicon.ico'
+                },
+            ],
+        },
+    },
 })
