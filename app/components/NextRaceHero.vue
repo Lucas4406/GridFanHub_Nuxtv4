@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import {useCurrentMeetingStore} from "~/stores/currentOrNextMeeting";
 
-const runtimeConfig = useRuntimeConfig()
 const meetingData = useCurrentMeetingStore()
 await callOnce(meetingData.fetch)
-
-
-const nextRace = `Next - ${meetingData.currentMeeting?.race.meetingName}`
-const nextRaceDescription = `${meetingData.currentMeeting?.race.roundText} - ${new Date(meetingData.currentMeeting?.race.meetingStartDate).toLocaleString()} `
 
 
 const race = meetingData.currentMeeting?.race
@@ -15,7 +10,7 @@ const timetable = meetingData.currentMeeting?.seasonContext?.timetables || []
 
 
 // Primele 3 sesiuni viitoare
-const nextSessions = timetable.slice(0, 3)
+const nextSessions = timetable.filter(s => s.state === "upcoming").slice(0, 3)
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr)

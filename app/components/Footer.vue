@@ -1,21 +1,19 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
+const season = useSeasonStore()
 
 const items: NavigationMenuItem[] = [
   {
-    label: 'Figma Kit',
-    to: 'https://go.nuxt.com/figma-ui',
-    target: '_blank'
+    label: 'Full Schedule',
+    to: `/schedule/${season.seasonYear}`,
   },
   {
-    label: 'Playground',
-    to: 'https://stackblitz.com/edit/nuxt-ui',
-    target: '_blank'
+    label: 'Latest news',
+    to: '/latest/news',
   },
   {
-    label: 'Releases',
-    to: 'https://github.com/nuxt/ui/releases',
-    target: '_blank'
+    label: 'Latest videos',
+    to: '/latest/videos',
   }
 ]
 </script>
