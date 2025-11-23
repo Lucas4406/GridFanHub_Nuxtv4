@@ -30,47 +30,28 @@ const items = ref([
     ]
   },
   {
-    label: 'Components',
-    icon: 'i-lucide-box',
-    to: '/docs/components',
+    label: 'Standings',
+    icon: 'i-lucide-database',
+    to: '/standings/drivers',
     children: [
       {
-        label: 'Link',
-        icon: 'i-lucide-file-text',
-        description: 'Use NuxtLink with superpowers.',
-        to: '/docs/components/link'
+        label: 'Driver standings',
+        icon: 'i-lucide-database',
+        description: 'Driver standings updated after every session',
+        to: '/standings/drivers'
       },
       {
-        label: 'Modal',
-        icon: 'i-lucide-file-text',
-        description: 'Display a modal within your application.',
-        to: '/docs/components/modal'
+        label: 'Team standings',
+        icon: 'i-lucide-video',
+        description: 'Team standings updated after every session',
+        to: '/standings/teams'
       },
-      {
-        label: 'NavigationMenu',
-        icon: 'i-lucide-file-text',
-        description: 'Display a list of links.',
-        to: '/docs/components/navigation-menu'
-      },
-      {
-        label: 'Pagination',
-        icon: 'i-lucide-file-text',
-        description: 'Display a list of pages.',
-        to: '/docs/components/pagination'
-      },
-      {
-        label: 'Popover',
-        icon: 'i-lucide-file-text',
-        description: 'Display a non-modal dialog that floats around a trigger element.',
-        to: '/docs/components/popover'
-      },
-      {
-        label: 'Progress',
-        icon: 'i-lucide-file-text',
-        description: 'Show a horizontal bar to indicate task progression.',
-        to: '/docs/components/progress'
-      }
     ]
+  },
+  {
+    label: 'Results',
+    icon: 'i-lucide-database',
+    to: '/results',
   },
 ])
 

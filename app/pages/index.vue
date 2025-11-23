@@ -10,7 +10,7 @@
       <UContainer>
         <NewsComponent />
       </UContainer>
-      <UContainer>
+      <UContainer v-if="lastRaceStore.lastRaceData">
         <UPageHeader title="Last Race" :description="lastRaceStore.lastRaceData.meeting.meetingOfficialName" />
         <LastRacePodium :results="lastRaceStore.lastRaceData.topDriverResults" />
       </UContainer>
