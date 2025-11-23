@@ -4,6 +4,19 @@ const seasonYear = route.params.year as string
 const events = useEventsPageStore()
 
 await callOnce(() => events.fetch({ year: seasonYear }))
+
+useHead({
+  title: `GridFanHub - ${seasonYear} Formula 1 Schedule`,
+  meta: [
+    { name: 'description', content: `Explore the complete Formula 1 ${seasonYear} schedule, including all Grand Prix dates, race weekends, session times, and circuits. Stay updated with the full F1 calendar for ${seasonYear}, featuring detailed information for every practice, qualifying, sprint, and race event throughout the season.` },
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://beta.gridfanhub.com/schedule/${seasonYear}`,
+    }
+  ]
+})
 </script>
 
 <template>

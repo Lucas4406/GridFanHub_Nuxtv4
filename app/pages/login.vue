@@ -63,6 +63,19 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
   }
   loading.value = false
 }
+
+useHead({
+  title: "GridFanHub - Login",
+  meta: [
+    { name: 'description', content: 'Sign in to your GridFanHub account' },
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: 'https://beta.gridfanhub.com/login'
+    }
+  ]
+})
 </script>
 
 <template>

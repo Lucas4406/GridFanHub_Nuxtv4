@@ -12,7 +12,7 @@ const authors = ref([
 </script>
 
 <template>
-  <UPageHeader title="Latest News" description="Stay updated with the latest news articles." />
+  <UPageHeader title="Latest News" description="Stay updated with the latest news articles." class="mb-4" />
   <UBlogPosts>
         <UBlogPost
           v-for="article in news.newsArray"

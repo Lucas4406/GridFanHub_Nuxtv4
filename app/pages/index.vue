@@ -10,14 +10,20 @@
       <UContainer>
         <NewsComponent />
       </UContainer>
+      <UContainer>
+        <UPageHeader title="Last Race" :description="lastRaceStore.lastRaceData.meeting.meetingOfficialName" />
+        <LastRacePodium :results="lastRaceStore.lastRaceData.topDriverResults" />
+      </UContainer>
     </UPageBody>
   </UPage>
 </template>
 
 <script setup lang="ts">
-useSeoMeta({
+useHead({
   title: "GridFanHub - Home",
-  description: "Stay updated with the latest Formula 1 news, videos, data and race schedules on GridFanHub.",
+  meta: [
+    { name: 'description', content: 'Stay updated with the latest Formula 1 news, videos, data and race schedules on GridFanHub.' },
+  ],
   link: [
     {
       rel: 'canonical',
@@ -25,5 +31,8 @@ useSeoMeta({
     }
   ]
 })
+
+const lastRaceStore = useLastRaceDataStore()
+await callOnce(lastRaceStore.fetch)
 
 </script>
