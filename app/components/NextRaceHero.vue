@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import {useCurrentMeetingStore} from "~/stores/currentOrNextMeeting";
 
+const { sessionShowNumber } = defineProps<{
+  sessionShowNumber: String
+}>()
+
 const meetingData = useCurrentMeetingStore()
 await callOnce(meetingData.fetch)
 
@@ -10,7 +14,7 @@ const timetable = meetingData.currentMeeting?.seasonContext?.timetables || []
 
 
 // Primele 3 sesiuni viitoare
-const nextSessions = timetable.filter(s => s.state === "upcoming").slice(0, 3)
+const nextSessions = timetable.filter(s => s.state === "upcoming").slice(0, Number(sessionShowNumber) || 3)
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr)

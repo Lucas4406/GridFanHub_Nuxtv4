@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth";
+import { admin } from "better-auth/plugins"
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/drizzle/db"; // your drizzle instance
 
@@ -18,6 +19,9 @@ export const auth = betterAuth({
             maxAge: 60,
         }
     },
+    plugins: [
+        admin()
+    ],
     database: drizzleAdapter(db, {
         provider: "pg"
     }),

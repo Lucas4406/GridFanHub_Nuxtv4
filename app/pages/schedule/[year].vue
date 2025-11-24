@@ -24,6 +24,9 @@ useHead({
     <UPageBody>
       <UContainer>
         <UPageHeader :title="`Formula 1 ${seasonYear} schedule`" />
+        <div class="flex justify-center items-center my-4">
+          <NextRaceHero class="col-span-2 lg:w-[60%]" sessionShowNumber="5"  />
+        </div>
         <UPageGrid>
           <EventCard
             v-for="event in events.eventsArray"

@@ -3,7 +3,7 @@
     <UPageBody>
       <UContainer>
         <UPageGrid>
-          <NextRaceHero class="lg:col-span-2" />
+          <NextRaceHero class="lg:col-span-2" sessionShowNumber="3" />
           <LapsStatistic />
         </UPageGrid>
       </UContainer>

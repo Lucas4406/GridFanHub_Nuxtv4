@@ -1,13 +1,10 @@
 import {useAuthClient} from "~/composables/auth";
 
-export default defineNuxtRouteMiddleware(async to => {
-    const isUserNavigatingToTheApp = to.path.startsWith('/profile')
-    if (!isUserNavigatingToTheApp) {
-        return
-    }
-
+export default defineNuxtRouteMiddleware(async (to, from) => {
     const { data: loggedIn } = await useAuthClient().useSession(useFetch)
     if (!loggedIn.value) {
-        return navigateTo('/auth/login')
+        if (to.path === "/profile") {
+            return navigateTo("/login");
+        }
     }
 })
