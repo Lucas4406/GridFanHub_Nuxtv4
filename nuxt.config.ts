@@ -32,6 +32,13 @@ export default defineNuxtConfig({
                     rel: 'apple-touch-icon', type: 'image/x-icon', href: '/favicon.ico'
                 },
             ],
+            script: [
+                {
+                    src: "https://cloud.umami.is/script.js",
+                    defer: true,
+                    "data-website-id": "6ac95bec-ba4c-4317-a10f-71e7b843d283",
+                }
+            ],
         },
     },
 })
