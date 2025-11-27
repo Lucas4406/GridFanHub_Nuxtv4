@@ -22,9 +22,17 @@ function formatDate(dateStr: string) {
     weekday: "short",
     hour: "2-digit",
     minute: "2-digit",
-    day: "numeric",
-    month: "short",
   })
+}
+
+function formatDateStable(dateStr: string) {
+  const date = new Date(dateStr)
+
+  // manual formatting => identic pe server și client
+  const day = date.getDate()
+  const monthShort = date.toLocaleString("en", { month: "short" }) // asta e OK, e stabilă
+
+  return `${day} ${monthShort}`
 }
 
 const mainTitle = race ? `Next – ${race.meetingName}` : "Next Race"
@@ -101,20 +109,16 @@ const subTitle = race
 
         <!-- Dates -->
         <p class="text-sm opacity-70">
-          {{ new Date(race?.meetingStartDate).toLocaleDateString("en-GB", {
-          day: "numeric", month: "short"
-        }) }}
+          {{ formatDateStable(race?.meetingStartDate) }}
           –
-          {{ new Date(race?.meetingEndDate).toLocaleDateString("en-GB", {
-          day: "numeric", month: "short"
-        }) }}
+          {{ formatDateStable(race?.meetingEndDate) }}
         </p>
 
         <!-- Next sessions -->
         <div class="mt-2 space-y-1">
-          <h3 class="text-sm font-semibold opacity-70">Upcoming sessions</h3>
+          <h3 class="text-md font-semibold opacity-70">Upcoming sessions</h3>
 
-          <div v-for="s in nextSessions" :key="s.session" class="flex justify-between text-sm">
+          <div v-for="s in nextSessions" :key="s.session" class="flex justify-between text-md">
             <span class="font-medium">{{ s.shortName }}</span>
             <span class="opacity-70">{{ formatDate(s.startTime + s.gmtOffset) }}</span>
           </div>

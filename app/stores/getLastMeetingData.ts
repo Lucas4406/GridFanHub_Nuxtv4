@@ -1,11 +1,20 @@
 export const useLastMeetingDataStore = defineStore('lastMeetingData', {
     state: () => ({
-        lastMeetingData: Object
+        lastMeetingData: null as any
     }),
     actions: {
         async fetch () {
             const runtimeConfig = useRuntimeConfig()
-            this.lastMeetingData = await $fetch<any>(`${runtimeConfig.public.apiBase}/get-last-meeting`)
+            const data = await $fetch<any>(`${runtimeConfig.public.apiBase}/get-last-meeting`)
+
+            // dacă API a trimis doar un mesaj, NU este un meeting valid
+            if (data && data.message) {
+                console.warn("API returned message instead of meeting:", data.message)
+                this.lastMeetingData = null
+                return
+            }
+
+            this.lastMeetingData = data
         },
     },
 })

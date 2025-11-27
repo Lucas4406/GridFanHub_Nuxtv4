@@ -12,7 +12,8 @@ export const useLastRaceDataStore = defineStore('lastRaceData', {
 
                 const meeting = lastMeetingStore.lastMeetingData
                 if (!meeting) {
-                    console.warn("No meeting data found.")
+                    console.warn("No valid meeting returned, skipping lastRace fetch.")
+                    this.lastRaceData = null
                     return
                 }
 
