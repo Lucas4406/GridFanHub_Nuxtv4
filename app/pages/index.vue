@@ -3,14 +3,14 @@
     <UPageBody>
       <UContainer>
         <UPageGrid>
-          <NextRaceHero class="lg:col-span-2" sessionShowNumber="3" />
+          <NextRaceHero class="lg:col-span-2" sessionShowNumber="3" :onlyNextSessions="true" />
           <LapsStatistic />
         </UPageGrid>
       </UContainer>
       <UContainer>
         <NewsComponent />
       </UContainer>
-      <UContainer v-if="lastRaceStore.lastRaceData">
+      <UContainer v-if="isLastRace">
         <UPageHeader title="Last Race" :description="lastRaceStore.lastRaceData.meeting.meetingOfficialName" />
         <LastRacePodium :results="lastRaceStore.lastRaceData.topDriverResults" />
       </UContainer>
@@ -19,6 +19,7 @@
 </template>
 
 <script setup lang="ts">
+
 useHead({
   title: "GridFanHub - Home",
   meta: [
@@ -32,7 +33,14 @@ useHead({
   ]
 })
 
-const lastRaceStore = useLastRaceDataStore()
-await callOnce(lastRaceStore.fetch)
+const meetingData = useCurrentMeetingStore()
+await callOnce(meetingData.fetch)
+const isLastRace = false
+
+if(new Date(meetingData.currentMeeting?.race.meetingStartDate) > new Date()){
+  isLastRace.value = true
+  const lastRaceStore = useLastRaceDataStore()
+  await callOnce(lastRaceStore.fetch)
+}
 
 </script>
