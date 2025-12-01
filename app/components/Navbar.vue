@@ -31,18 +31,16 @@ const items = ref([
   },
   {
     label: 'Standings',
-    icon: 'i-lucide-database',
+    icon: 'i-lucide-square-chart-gantt',
     to: '/standings/drivers',
     children: [
       {
         label: 'Driver standings',
-        icon: 'i-lucide-database',
         description: 'Driver standings updated after every session',
         to: '/standings/drivers'
       },
       {
         label: 'Team standings',
-        icon: 'i-lucide-video',
         description: 'Team standings updated after every session',
         to: '/standings/teams'
       },
@@ -50,7 +48,6 @@ const items = ref([
   },
   {
     label: 'Results',
-    icon: 'i-lucide-database',
     to: '/results',
   },
 ])

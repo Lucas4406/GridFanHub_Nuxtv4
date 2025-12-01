@@ -27,7 +27,9 @@ const fields: AuthFormField[] = [{
 }]
 
 function loginWith(provider: string) {
-  signIn.social({ provider })
+  signIn.social({
+    provider,
+  })
 }
 
 const providers = [{

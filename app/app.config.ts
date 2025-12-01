@@ -12,11 +12,13 @@ export default defineAppConfig({
       },
       navigationMenu: {
             slots: {
-                link: "text-md",
+                link: "text-lg",
                 root: "gap-3",
                 linkLeadingIcon: "size-6",
                 childLinkIcon: "size-6",
+                childLabel: "text-md",
+                list: "gap-6",
             }
-      }
+      },
   }
 })
