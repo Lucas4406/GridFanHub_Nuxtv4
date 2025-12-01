@@ -35,11 +35,11 @@ useHead({
 
 const meetingData = useCurrentMeetingStore()
 await callOnce(meetingData.fetch)
-const isLastRace = false
+const isLastRace = ref(false)
+const lastRaceStore = useLastRaceDataStore()
 
 if(new Date(meetingData.currentMeeting?.race.meetingStartDate) > new Date()){
   isLastRace.value = true
-  const lastRaceStore = useLastRaceDataStore()
   await callOnce(lastRaceStore.fetch)
 }
 

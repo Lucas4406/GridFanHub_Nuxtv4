@@ -12,17 +12,17 @@ const top3 = computed(() =>
 </script>
 
 <template>
-  <div class="w-full flex justify-center mt-10">
+  <div class="w-full flex justify-center mt-14">
     <UPageGrid
         :cols="3"
         :gap="6"
         class="w-full max-w-6xl items-end"
     >
 
-      <!-- 🥈 P2 -->
+      <!--  P2 -->
       <UCard
           :style="{ backgroundColor: '#' + top3[1].teamColourCode }"
-          class="relative w-full rounded-2xl p-6 text-white shadow-xl flex flex-col"
+          class="relative w-full rounded-2xl p-6 text-white shadow-xl flex flex-col order-2 lg:order-1"
       >
         <p class="text-xl font-bold mb-1">2nd</p>
 
@@ -39,15 +39,15 @@ const top3 = computed(() =>
 
         <!-- Extra info -->
         <div class="mt-24">
-          <p class="font-semibold text-lg">P2 • {{ top3[1].displayTime }}</p>
+          <p class="font-semibold text-lg">{{ top3[1].displayTime }}</p>
           <p class="text-md">+{{ top3[1].racePoints }} pts</p>
         </div>
       </UCard>
 
-      <!-- 🥇 P1 (mai mare & ridicat) -->
+      <!--  P1 (mai mare & ridicat) -->
       <UCard
           :style="{ backgroundColor: '#' + top3[0].teamColourCode }"
-          class="relative w-full rounded-2xl p-8 text-white shadow-xl flex flex-col lg:-mt-10"
+          class="relative w-full rounded-2xl p-8 text-white shadow-xl flex flex-col lg:-mt-10 order-1 lg:order-2"
       >
         <p class="text-xl font-bold mb-1">🏆 1st</p>
 
@@ -63,15 +63,15 @@ const top3 = computed(() =>
         />
 
         <div class="mt-28">
-          <p class="font-semibold text-lg">P1 • {{ top3[0].displayTime }}</p>
+          <p class="font-semibold text-lg">{{ top3[0].displayTime }}</p>
           <p class="text-md">+{{ top3[0].racePoints }} pts</p>
         </div>
       </UCard>
 
-      <!-- 🥉 P3 -->
+      <!--  P3 -->
       <UCard
           :style="{ backgroundColor: '#' + top3[2].teamColourCode }"
-          class="relative w-full rounded-2xl p-6 text-white shadow-xl flex flex-col"
+          class="relative w-full rounded-2xl p-6 text-white shadow-xl flex flex-col order-3 lg:order-3"
       >
         <p class="text-xl font-bold mb-1">3rd</p>
 
@@ -86,7 +86,7 @@ const top3 = computed(() =>
         />
 
         <div class="mt-24">
-          <p class="font-semibold text-lg">P3 • {{ top3[2].displayTime }}</p>
+          <p class="font-semibold text-lg">{{ top3[2].displayTime }}</p>
           <p class="text-md">+{{ top3[2].racePoints }} pts</p>
         </div>
       </UCard>

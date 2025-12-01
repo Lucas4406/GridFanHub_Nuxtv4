@@ -5,7 +5,11 @@ export const useCurrentEventsLinksStore = defineStore('currentEventsLinks', {
     actions: {
         async fetch (meetingKey: string | number) {
             const runtimeConfig = useRuntimeConfig()
-            this.currentEventLinks = await $fetch<any>(`${runtimeConfig.public.cloudflareProxyBase}/v2/fom-results/dropdown-meeting-datasets?meeting=${meetingKey}`)
+            this.currentEventLinks = await $fetch<any>(`${runtimeConfig.public.cloudflareProxyBase}/v2/fom-results/dropdown-meeting-datasets?meeting=${meetingKey}`, {
+                headers: {
+                    "X-Cache-Duration": "600",
+                }
+            })
         },
     },
 })
