@@ -17,8 +17,8 @@ export const useLastRaceDataStore = defineStore('lastRaceData', {
                     return
                 }
 
-                const meetingYear = meeting.season
-                const firebaseIdentifier = `${meeting.meetingId}_${meeting.meetingData.race.meetingName.replaceAll(" ", "-").toLowerCase()}`
+                const meetingYear = meeting.seasonContext.seasonYear
+                const firebaseIdentifier = `${meeting.fomRaceId}_${meeting.race.meetingName.replaceAll(" ", "-").toLowerCase()}`
 
                 const url = `${runtimeConfig.public.apiBase}/season-results/homepage/${meetingYear}/${firebaseIdentifier}`
 
