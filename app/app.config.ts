@@ -17,7 +17,7 @@ export default defineAppConfig({
                 linkLeadingIcon: "size-6",
                 childLinkIcon: "size-6",
                 childLabel: "text-md",
-                list: "gap-6",
+                list: "gap-3 lg:gap-6",
             }
       },
   }
