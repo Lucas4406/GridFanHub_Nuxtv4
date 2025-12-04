@@ -37,8 +37,12 @@ const meetingData = useCurrentMeetingStore()
 await callOnce(meetingData.fetch)
 const isLastRace = ref(false)
 const lastRaceStore = useLastRaceDataStore()
+const start = new Date(meetingData.currentMeeting?.race.meetingStartDate)
+const minus24h = new Date(start.getTime() - 24 * 60 * 60 * 1000)
 
-if(new Date(meetingData.currentMeeting?.race.meetingStartDate) > new Date()){
+
+if(minus24h > new Date()){
+  console.log("Showing last race data")
   isLastRace.value = true
   await callOnce(lastRaceStore.fetch)
 }
