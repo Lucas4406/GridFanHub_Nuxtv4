@@ -20,6 +20,7 @@ function extractDayAndMonthShort(dateString: string) {
   <UPageCard
       :title="event.meetingLocation"
       :description="event.meetingOfficialName"
+      :to="`/schedule/${new Date(event.meetingStartDate).getFullYear()}/${event.meetingName.replaceAll(/\s+/g, '-').toLowerCase()}`"
       orientation="horizontal"
       variant="soft"
       :class="event.isCurrentMeeting ? 'bg-primary border-primary' : ''"
