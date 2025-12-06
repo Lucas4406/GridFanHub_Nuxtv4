@@ -47,6 +47,9 @@ const subTitle = race
     ? `${race.roundText} • ${race.meetingLocation}, ${race.meetingCountryName}`
     : ""
 
+const slugify = (str: string) =>
+    str.trim().toLowerCase().split(/\s+/).join('-');
+
 // const lastCompleted = computed(() => {
 //   const t = meetingData.currentMeeting?.seasonContext?.timetables
 //   if (!t) return null
@@ -105,6 +108,7 @@ const subTitle = race
       variant="soft"
       highlight
       highlight-color="primary"
+      :to="`/schedule/${new Date(race.meetingStartDate).getFullYear()}/${slugify(race.meetingName)}`"
   >
     <!-- LEFT SIDE -->
     <template #body>
