@@ -33,14 +33,38 @@ const slugify = (str: string) =>
     str.trim().toLowerCase().split(/\s+/).join('-');
 
 
+const firebaseIdentifier = meetingData.value.meetingKey + "_" + slugify(meetingData.value.meetingName)
+const firebaseYear = new Date(meetingData.value.meetingStartDate).getFullYear()
+const firebaseSessionsPath = `${runtimeConfig.public.apiBase}/api-latest-session-f/view/${firebaseYear}/${firebaseIdentifier}?filter=true`
+const { data: firebaseSessionsData } = await useFetch(firebaseSessionsPath)
+
+function checkIfSessionResultAvailable(session){
+  if(!firebaseSessionsData.value){
+    return false;
+  }
+  let sessionName = session.description.toLowerCase().replaceAll(/\s+/g, '');
+  if(sessionName === "sprintqualifying"){
+    sessionName = "sprint shootout"
+  }
+  return firebaseSessionsData.value.some(s => s.session === sessionName);
+}
+
+const posterData = {
+  circuitTitle: fullMeetingData.value?.race.circuitOfficialName || '',
+  circuitDescription: fullMeetingData.value?.circuitDescriptionText || '',
+  circuitStats: fullMeetingData.value?.circuitDescription || {},
+  imageUrl: fullMeetingData.value?.raceImage.url || '',
+}
+
+
 </script>
 
 <template>
 <UContainer>
   <UPageHeader :title="meetingData?.meetingOfficialName" :description="meetingData?.circuitLocation" />
   <UPageBody class="mt-0">
-    <NuxtImg :src="fullMeetingData?.raceImage.url" class="w-full" />
     <UContainer>
+      <h2 class="text-3xl lg:text-4xl font-bold my-6">Schedule</h2>
       <UPageList divide class="border-2 border-neutral-800 rounded-xl p-4">
         <UPageCard
             v-for="(session, meetingSessionKey) in timetables"
@@ -79,6 +103,7 @@ const slugify = (str: string) =>
 
               <!-- Right section: Button -->
               <NuxtLink
+                  v-if="checkIfSessionResultAvailable(session)"
                   :to="`/results/${new Date(session.startTime).getFullYear()}/${slugify(meetingData?.meetingName || '')}/${slugify(session.description)}`"
                   class="px-4 py-2 rounded-md bg-primary text-white hover:underline text-sm font-medium self-start sm:self-auto"
               >
@@ -90,6 +115,7 @@ const slugify = (str: string) =>
         </UPageCard>
       </UPageList>
     </UContainer>
+    <ScrollablePoster :posterData="posterData" />
   </UPageBody>
 </UContainer>
 </template>
