@@ -5,11 +5,7 @@ export const useCurrentMeetingStore = defineStore('currentMeeting', {
     actions: {
         async fetch () {
             const runtimeConfig = useRuntimeConfig()
-            this.currentMeeting = await $fetch<any>(`${runtimeConfig.public.cloudflareProxyBase}/v1/event-tracker`, {
-                headers: {
-                    "X-Cache-Duration": "600",
-                }
-            })
+            this.currentMeeting = await $fetch<any>(`${runtimeConfig.public.apiBase}/get-next`)
         },
     },
 })

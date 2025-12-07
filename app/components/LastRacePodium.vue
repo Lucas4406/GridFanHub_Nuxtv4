@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const { results } = defineProps<{
-  results: any[]
+const { results, resultsLink } = defineProps<{
+  results: any[],
+  resultsLink?: string
 }>()
 
 // sortare 1–2–3
@@ -92,6 +93,9 @@ const top3 = computed(() =>
       </UCard>
 
     </UPageGrid>
+  </div>
+  <div class="flex justify-center mt-6">
+    <UButton label="View all results" size="xl" class="cursor-pointer" :to="resultsLink" />
   </div>
 </template>
 

@@ -18,7 +18,7 @@ let nextSessions
 
 // Primele 3 sesiuni viitoare
 if(onlyNextSessions){
-  nextSessions = timetable.filter(s => s.state === "upcoming").slice(0, Number(sessionShowNumber) || 3)
+  nextSessions = timetable.filter(s => s.status === "isNext").slice(0, Number(sessionShowNumber) || 3)
 }else{
   nextSessions = timetable
 }
@@ -42,9 +42,9 @@ function formatDateStable(dateStr: string) {
   return `${day} ${monthShort}`
 }
 
-const mainTitle = race ? `Next – ${race.meetingName}` : `Completed - ${race.meetingName}`
+const mainTitle = meetingData.currentMeeting?.meetingContext.status
 const subTitle = race
-    ? `${race.roundText} • ${race.meetingLocation}, ${race.meetingCountryName}`
+    ? `R${meetingData.currentMeeting?.meetingContext.nr_runda + 1} • ${race.meetingLocation}, ${race.meetingCountryName}`
     : ""
 
 const slugify = (str: string) =>
@@ -127,7 +127,8 @@ const slugify = (str: string) =>
 
         <!-- Next sessions -->
         <div class="mt-2 space-y-1">
-          <h3 class="text-md font-semibold opacity-70">Upcoming sessions</h3>
+          <h3 class="text-md font-semibold opacity-70" v-if="nextSessions.length > 0">Upcoming sessions</h3>
+          <h3 class="text-md font-semibold opacity-70" v-else>Weekend Finished</h3>
 
           <div v-for="s in nextSessions" :key="s.session" class="flex justify-between text-md">
             <span class="font-medium">{{ s.shortName }}</span>

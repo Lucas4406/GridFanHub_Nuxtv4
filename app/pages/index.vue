@@ -12,7 +12,7 @@
       </UContainer>
       <UContainer v-if="isLastRace">
         <UPageHeader title="Last Race" :description="lastRaceStore.lastRaceData.meeting.meetingOfficialName" />
-        <LastRacePodium :results="lastRaceStore.lastRaceData.topDriverResults" />
+        <LastRacePodium :results="lastRaceStore.lastRaceData.topDriverResults" :resultsLink="lastRaceLink" />
       </UContainer>
     </UPageBody>
   </UPage>
@@ -36,15 +36,29 @@ useHead({
 const meetingData = useCurrentMeetingStore()
 await callOnce(meetingData.fetch)
 const isLastRace = ref(false)
+const lastRaceLink = ref("")
+
 const lastRaceStore = useLastRaceDataStore()
 const start = new Date(meetingData.currentMeeting?.race.meetingStartDate)
 const minus24h = new Date(start.getTime() - 24 * 60 * 60 * 1000)
 
+const slugify = (str: string) =>
+    str.trim().toLowerCase().split(/\s+/).join('-');
 
-if(minus24h > new Date()){
+
+console.log(meetingData.currentMeeting)
+
+if(meetingData.currentMeeting?.meetingContext.isLastEvent){
   console.log("Showing last race data")
   isLastRace.value = true
   await callOnce(lastRaceStore.fetch)
+  lastRaceLink.value = `/results/${lastRaceStore.lastRaceData.year}/${slugify(lastRaceStore.lastRaceData.meeting.meetingName)}/race`
+}else{
+  if(minus24h > new Date()){
+    console.log("Showing last race data")
+    isLastRace.value = true
+    await callOnce(lastRaceStore.fetch)
+  }
 }
 
 </script>
