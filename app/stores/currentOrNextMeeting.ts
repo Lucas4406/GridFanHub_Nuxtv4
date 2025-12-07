@@ -5,7 +5,9 @@ export const useCurrentMeetingStore = defineStore('currentMeeting', {
     actions: {
         async fetch () {
             const runtimeConfig = useRuntimeConfig()
-            this.currentMeeting = await $fetch<any>(`${runtimeConfig.public.apiBase}/get-next`)
+            const data = await $fetch<any>(`${runtimeConfig.public.apiBase}/get-next`)
+            data.meetingContext.nr_runda = data.meetingContext.nr_runda + 1
+            this.currentMeeting = data
         },
     },
 })

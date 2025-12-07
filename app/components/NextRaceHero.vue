@@ -44,7 +44,7 @@ function formatDateStable(dateStr: string) {
 
 const mainTitle = meetingData.currentMeeting?.meetingContext.status
 const subTitle = race
-    ? `R${meetingData.currentMeeting?.meetingContext.nr_runda + 1} • ${race.meetingLocation}, ${race.meetingCountryName}`
+    ? `R${meetingData.currentMeeting?.meetingContext.nr_runda} • ${race.meetingLocation}, ${race.meetingCountryName}`
     : ""
 
 const slugify = (str: string) =>

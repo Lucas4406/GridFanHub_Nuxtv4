@@ -8,23 +8,23 @@ const loading = ref(false)
 
 const toast = useToast()
 
-const fields: AuthFormField[] = [{
-  name: 'email',
-  type: 'email',
-  label: 'Email',
-  placeholder: 'Enter your email',
-  required: true
-}, {
-  name: 'password',
-  label: 'Password',
-  type: 'password',
-  placeholder: 'Enter your password',
-  required: true
-}, {
-  name: 'remember',
-  label: 'Remember me',
-  type: 'checkbox'
-}]
+// const fields: AuthFormField[] = [{
+//   name: 'email',
+//   type: 'email',
+//   label: 'Email',
+//   placeholder: 'Enter your email',
+//   required: true
+// }, {
+//   name: 'password',
+//   label: 'Password',
+//   type: 'password',
+//   placeholder: 'Enter your password',
+//   required: true
+// }, {
+//   name: 'remember',
+//   label: 'Remember me',
+//   type: 'checkbox'
+// }]
 
 function loginWith(provider: string) {
   signIn.social({
@@ -32,13 +32,15 @@ function loginWith(provider: string) {
   })
 }
 
-const providers = [{
-  label: 'Google',
-  icon: 'i-simple-icons-google',
-  onClick: () => {
-    loginWith('google')
-  }
-}, {
+const providers = [
+// {
+//   label: 'Google',
+//   icon: 'i-simple-icons-google',
+//   onClick: () => {
+//     loginWith('google')
+//   }
+// },
+{
   label: 'GitHub',
   icon: 'i-simple-icons-github',
   onClick: () => {

@@ -41,7 +41,7 @@ useHead(() => {
             to="/blog"
             class="text-black dark:text-white hover:underline font-medium inline-block"
         >
-          ← Back
+          ← All Posts
         </NuxtLink>
         <UPageHeader :title="post.title" :headline="new Date(post.date).toLocaleDateString()" >
           <template #description>
@@ -73,7 +73,7 @@ useHead(() => {
               :avatar="{
                   src: '/favicon.png'
                 }"
-              class="flex justify-center"
+              class="flex justify-center mt-8"
           />
         </UContainer>
       </UContainer>
