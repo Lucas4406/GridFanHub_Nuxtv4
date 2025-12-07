@@ -12,8 +12,8 @@ const items: NavigationMenuItem[] = [
     to: '/latest/news',
   },
   {
-    label: 'Latest videos',
-    to: '/latest/videos',
+    label: 'Blog',
+    to: '/blog',
   }
 ]
 </script>

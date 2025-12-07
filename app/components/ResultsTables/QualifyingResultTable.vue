@@ -36,7 +36,7 @@ const columns: TableColumn<F1Result & { driverAvatar: string; teamLogo: string; 
   {
     accessorKey: 'positionNumber',
     header: '#',
-    size: 60
+    size: 60,
   },
   {
     accessorKey: 'fullName',
@@ -44,7 +44,7 @@ const columns: TableColumn<F1Result & { driverAvatar: string; teamLogo: string; 
     cell: ({ row }) => {
       return h('div', { class: 'flex items-center gap-3' }, [
 
-        // AVATAR (cerc) → poza micșorată în interior
+        // Avatar
         h('div', {
           class: 'h-12 w-12 rounded-full overflow-hidden border bg-neutral-900 flex items-center justify-center'
         }, [
@@ -54,33 +54,50 @@ const columns: TableColumn<F1Result & { driverAvatar: string; teamLogo: string; 
           })
         ]),
 
-        // NUMELE
+        // NUME (versiuni diferite mobile / desktop)
         h('div', undefined, [
-          h('p', { class: 'font-medium text-highlighted text-base' }, row.original.fullName),
-          h('p', { class: 'text-sm opacity-70' }, row.original.driverShortName)
+
+          // 🟢 Desktop: nume complet
+          h('p', {
+            class: 'hidden md:block font-medium text-highlighted text-base'
+          }, row.original.fullName),
+
+          // 🟢 Mobil: nume scurt (ex: VER)
+          h('p', {
+            class: 'block md:hidden font-semibold text-highlighted text-base'
+          }, row.original.driverTLA)
         ])
       ])
     }
   },
+
   {
     accessorKey: 'teamName',
     header: 'Team',
     cell: ({ row }) => {
       return h('div', { class: 'flex items-center gap-2' }, [
+
+        // Logo (vizibil peste tot)
         h('img', {
           src: row.original.teamLogo,
-          class: 'h-5 w-auto'
+          class: 'h-7 w-auto bg-black rounded-2xl p-1'
         }),
-        h('span', { style: `color: #${row.original.teamColourCode}`, class: "text-md" }, row.original.teamName)
+
+        // Textul echipei — DOAR pe desktop
+        h('span', {
+          class: 'hidden md:block text-md',
+          style: `color: #${row.original.teamColourCode}`
+        }, row.original.teamName)
       ])
     }
   },
+
   {
     accessorKey: 'q1.displayTime',
     header: 'Q1',
     class: 'text-base',
     cell: ({ row }) => {
-      return h('span', { class: 'text-base font-medium' }, row.original.q1?.displayTime || '-')
+      return h('span', { class: 'text-base text-highlighted font-medium' }, row.original.q1?.displayTime || '-')
     }
   },
   {
@@ -88,7 +105,7 @@ const columns: TableColumn<F1Result & { driverAvatar: string; teamLogo: string; 
     header: 'Q2',
     class: 'text-base',
     cell: ({ row }) => {
-      return h('span', { class: 'text-base font-medium' }, row.original.q2?.displayTime || '-')
+      return h('span', { class: 'text-base text-highlighted font-medium' }, row.original.q2?.displayTime || '-')
     }
   },
   {
@@ -96,7 +113,7 @@ const columns: TableColumn<F1Result & { driverAvatar: string; teamLogo: string; 
     header: 'Q3',
     class: 'text-base',
     cell: ({ row }) => {
-      return h('span', { class: 'text-base font-medium' }, row.original.q3?.displayTime || '-')
+      return h('span', { class: 'text-base text-highlighted font-medium' }, row.original.q3?.displayTime || '-')
     }
   },
   {
@@ -104,7 +121,7 @@ const columns: TableColumn<F1Result & { driverAvatar: string; teamLogo: string; 
     header: 'Best Time',
     class: 'text-base',
     cell: ({ row }) => {
-      return h('span', { class: 'text-base font-semibold' }, row.original.displayTime)
+      return h('span', { class: 'text-base text-highlighted font-semibold' }, row.original.displayTime)
     }
   },
 ]
@@ -114,8 +131,7 @@ const columns: TableColumn<F1Result & { driverAvatar: string; teamLogo: string; 
   <UTable
       :data="data"
       :columns="columns"
-      class="flex-1"
-      sticky="header"
+      class="flex-1 bg-gray-100 dark:bg-gray-900"
   />
 </template>
 

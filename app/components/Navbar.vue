@@ -50,6 +50,10 @@ const items = ref([
     label: 'Results',
     to: '/results',
   },
+  {
+    label: 'Blog',
+    to: '/blog',
+  },
 ])
 
 const route = useRoute()

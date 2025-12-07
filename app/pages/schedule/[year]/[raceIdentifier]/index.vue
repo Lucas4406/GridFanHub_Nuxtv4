@@ -57,6 +57,22 @@ const posterData = {
 }
 
 
+useHead({
+  title: `GridFanHub - ${meetingData?.value.meetingName} ${firebaseYear} `,
+  meta: [
+    {
+      name: 'description',
+      content: `Discover the full Formula 1 ${firebaseYear} race weekend schedule for ${meetingData?.value.meetingName}. Get all the session times in your local time zone. Explore circuit details, images, and session results for every Grand Prix of the ${firebaseYear} season.`
+    },
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://beta.gridfanhub.com/schedule/${firebaseYear}/${raceIdentifier}`,
+    }
+  ]
+})
+
 </script>
 
 <template>
