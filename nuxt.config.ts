@@ -11,8 +11,8 @@ export default defineNuxtConfig({
     '@nuxthub/core',
     '@nuxt/ui',
     '@nuxt/content',
-    'nuxt-studio',
   ],
+    // 'nuxt-studio',
     css: ['~/assets/css/main.css'],
     runtimeConfig: {
         // The private keys which are only available server-side
@@ -32,16 +32,16 @@ export default defineNuxtConfig({
             bindingName: 'DB'
         }
     },
-    studio: {
-        route: '/admin',
-        // Git repository configuration (owner and repo are required)
-        repository: {
-            provider: 'github', // 'github' or 'gitlab'
-            owner: 'Lucas4406', // your GitHub/GitLab username or organization
-            repo: 'GridFanHub_Nuxtv4', // your repository name
-            branch: 'master', // the branch to commit to (default: 'main')
-        }
-    },
+    // studio: {
+    //     route: '/admin',
+    //     // Git repository configuration (owner and repo are required)
+    //     repository: {
+    //         provider: 'github', // 'github' or 'gitlab'
+    //         owner: 'Lucas4406', // your GitHub/GitLab username or organization
+    //         repo: 'GridFanHub_Nuxtv4', // your repository name
+    //         branch: 'master', // the branch to commit to (default: 'main')
+    //     }
+    // },
     app: {
         head: {
             title: 'GridFanHub - the new website where you can find the latest news and data about Formula1', // default fallback title
