@@ -10,6 +10,8 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxthub/core',
     '@nuxt/ui',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
     '@nuxt/content',
   ],
     // 'nuxt-studio',
@@ -22,6 +24,10 @@ export default defineNuxtConfig({
             apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000',
             cloudflareProxyBase: 'https://proxy.gridfanhub.com'
         },
+    },
+    site: {
+        url: 'https://beta.gridfanhub.com',
+        name: 'GridFanHub',
     },
     hub: {
         database: true

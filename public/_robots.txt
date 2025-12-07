@@ -1,0 +1,4 @@
+User-Agent: *
+Disallow:
+Sitemap: https://beta.gridfanhub.com/sitemap.xml
+Disallow: /admin
