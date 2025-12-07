@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@nuxthub/core',
     '@nuxt/ui',
     '@nuxt/content',
+    'nuxt-studio',
   ],
     css: ['~/assets/css/main.css'],
     runtimeConfig: {
@@ -29,6 +30,16 @@ export default defineNuxtConfig({
         database: {
             type: 'd1',
             bindingName: 'DB'
+        }
+    },
+    studio: {
+        route: '/admin',
+        // Git repository configuration (owner and repo are required)
+        repository: {
+            provider: 'github', // 'github' or 'gitlab'
+            owner: 'Lucas4406', // your GitHub/GitLab username or organization
+            repo: 'GridFanHub_Nuxtv4', // your repository name
+            branch: 'master', // the branch to commit to (default: 'main')
         }
     },
     app: {

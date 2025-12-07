@@ -42,7 +42,7 @@ function formatDateStable(dateStr: string) {
   return `${day} ${monthShort}`
 }
 
-const mainTitle = race ? `Next – ${race.meetingName}` : "Next Race"
+const mainTitle = race ? `Next – ${race.meetingName}` : `Completed - ${race.meetingName}`
 const subTitle = race
     ? `${race.roundText} • ${race.meetingLocation}, ${race.meetingCountryName}`
     : ""

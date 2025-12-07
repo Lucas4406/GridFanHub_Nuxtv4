@@ -52,8 +52,16 @@ useHead(() => {
             </div>
           </template>
         </UPageHeader>
-        <div class="w-full flex justify-center py-4" v-if="post.image?.includes('media.formula1.com')" >
+        <div class="w-full flex flex-col justify-center py-4" v-if="post.image?.includes('media.formula1.com')" >
           <NuxtImg :src="post.image" :alt="post.location" class="w-full" />
+          <a
+              :href="post.image"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-2 text-xs lg:text-sm text-gray-500 hover:underline"
+          >
+            Source: media.formula1.com
+          </a>
         </div>
         <UContainer>
           <ContentRenderer v-if="post" :value="post" />
