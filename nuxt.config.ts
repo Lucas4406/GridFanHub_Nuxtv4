@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxthub/core',
     '@nuxt/ui',
+    '@nuxt/content',
   ],
     css: ['~/assets/css/main.css'],
     runtimeConfig: {
@@ -20,6 +21,15 @@ export default defineNuxtConfig({
             apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000',
             cloudflareProxyBase: 'https://proxy.gridfanhub.com'
         },
+    },
+    hub: {
+        database: true
+    },
+    content: {
+        database: {
+            type: 'd1',
+            bindingName: 'DB'
+        }
     },
     app: {
         head: {

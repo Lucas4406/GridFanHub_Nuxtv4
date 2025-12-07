@@ -73,7 +73,10 @@ const resultsArray = resultsObj.results || []
     <UContainer>
       <UPageHeader :title="`${displaySessionName} Results`" :description="sessionData?.data.meeting.meetingName" />
       <div class="mt-6">
-        <QualifyingResultTable :results="resultsArray" />
+        <QualifyingResultTable
+            v-if="['Qualifying', 'SprintShootout'].includes(firestoreSessionName)"
+            :results="resultsArray"
+        />
       </div>
     </UContainer>
   </UPageBody>
