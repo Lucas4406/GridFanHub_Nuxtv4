@@ -8,6 +8,7 @@ const year = route.params.year as string
 const runtimeConfig = useRuntimeConfig()
 
 import type { TableColumn } from '@nuxt/ui'
+import RaceResultTable from "~/components/ResultsTables/RaceResultTable.vue";
 
 
 
@@ -77,6 +78,7 @@ const resultsArray = resultsObj.results || []
             v-if="['Qualifying', 'SprintShootout'].includes(firestoreSessionName)"
             :results="resultsArray"
         />
+        <RaceResultTable :results="resultsArray" v-if="['Race', 'Sprint'].includes(firestoreSessionName)" />
       </div>
     </UContainer>
   </UPageBody>
