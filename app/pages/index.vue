@@ -46,8 +46,6 @@ const slugify = (str: string) =>
     str.trim().toLowerCase().split(/\s+/).join('-');
 
 
-console.log(meetingData.currentMeeting)
-
 if(meetingData.currentMeeting?.meetingContext.isLastEvent){
   console.log("Showing last race data")
   isLastRace.value = true
