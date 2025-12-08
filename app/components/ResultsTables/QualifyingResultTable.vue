@@ -26,7 +26,7 @@ type F1Result = {
 const data = computed(() =>
     results.map(r => ({
       ...r,
-      driverAvatar: `https://media.formula1.com/image/upload/c_thumb,g_auto:face,w_120,h_120,q_auto,f_auto/v1740000000/${r.driverAvatarImage.public_id}.png`,
+      driverAvatar: `https://media.formula1.com/image/upload/f_auto,c_fill,g_auto,w_100,h_100/${r.driverAvatarImage.public_id}.png`,
       teamLogo: `https://media.formula1.com/image/upload/c_lfill,w_64/q_auto/v1740000000/${r.teamLogoImage.public_id}.png`,
       fullName: `${r.driverFirstName} ${r.driverLastName}`
     }))
@@ -45,14 +45,10 @@ const columns: TableColumn<F1Result & { driverAvatar: string; teamLogo: string; 
       return h('div', { class: 'flex items-center gap-3' }, [
 
         // Avatar
-        h('div', {
-          class: 'h-12 w-12 rounded-full overflow-hidden border bg-neutral-900 flex items-center justify-center'
-        }, [
-          h('img', {
-            src: row.original.driverAvatar,
-            class: 'w-full h-full object-cover scale-90'
-          })
-        ]),
+        h('img', {
+          src: row.original.driverAvatar,
+          class: 'h-7 w-7 lg:h-10 lg:w-10 object-cover rounded-full'
+        }),
 
         // NUME (versiuni diferite mobile / desktop)
         h('div', undefined, [
