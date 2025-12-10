@@ -3,7 +3,7 @@
     <UPageBody>
       <UContainer>
         <UPageGrid>
-          <NextRaceHero class="lg:col-span-2" sessionShowNumber="3" :onlyNextSessions="true" />
+          <NextRaceHero class="lg:col-span-2" sessionShowNumber="3" :onlyNextSessions="true" v-if="weekendStatus.seasonTracker.next" />
           <LapsStatistic />
         </UPageGrid>
       </UContainer>
@@ -33,20 +33,22 @@ useHead({
   ]
 })
 
-const meetingData = useCurrentMeetingStore()
-await callOnce(meetingData.fetch)
 const isLastRace = ref(false)
 const lastRaceLink = ref("")
 
-const lastRaceStore = useLastRaceDataStore()
-const start = new Date(meetingData.currentMeeting?.race.meetingStartDate)
-const minus24h = new Date(start.getTime() - 24 * 60 * 60 * 1000)
+
+
+const weekend = useWeekendStatusStore()
+const weekendStatus = weekend.weekendStatus
 
 const slugify = (str: string) =>
     str.trim().toLowerCase().split(/\s+/).join('-');
 
+const lastRaceStore = useLastRaceDataStore()
+const start = new Date(weekendStatus.currentMeeting?.race.meetingStartDate)
+const minus24h = new Date(start.getTime() - 24 * 60 * 60 * 1000)
 
-if(meetingData.currentMeeting?.meetingContext.isLastEvent){
+if(weekendStatus?.weekendStatus.state === "weekend_not_started" || weekendStatus?.weekendStatus.state === "weekend_completed"){
   console.log("Showing last race data")
   isLastRace.value = true
   await callOnce(lastRaceStore.fetch)

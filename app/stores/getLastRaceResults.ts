@@ -6,19 +6,17 @@ export const useLastRaceDataStore = defineStore('lastRaceData', {
         async fetch () {
             try {
                 const runtimeConfig = useRuntimeConfig()
-                const lastMeetingStore = useLastMeetingDataStore()
+                const weekendStat = useWeekendStatusStore()
+                const weekendStatus = weekendStat.weekendStatus
 
-                await lastMeetingStore.fetch()
-
-                const meeting = lastMeetingStore.lastMeetingData
-                if (!meeting) {
+                if (!weekendStatus) {
                     console.warn("No valid meeting returned, skipping lastRace fetch.")
                     this.lastRaceData = null
                     return
                 }
 
-                const meetingYear = meeting.seasonContext.seasonYear
-                const firebaseIdentifier = `${meeting.fomRaceId}_${meeting.race.meetingName.replaceAll(" ", "-").toLowerCase()}`
+                const meetingYear = weekendStatus.race.year
+                const firebaseIdentifier = `${weekendStatus.fomRaceId}_${weekendStatus.race.meetingName.replaceAll(" ", "-").toLowerCase()}`
 
                 const url = `${runtimeConfig.public.apiBase}/season-results/homepage/${meetingYear}/${firebaseIdentifier}`
 

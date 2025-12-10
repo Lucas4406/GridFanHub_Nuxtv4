@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import {useCurrentMeetingStore} from "~/stores/currentOrNextMeeting";
 
 const { sessionShowNumber, onlyNextSessions } = defineProps<{
   sessionShowNumber: String,
   onlyNextSessions: Boolean
 }>()
 
-const meetingData = useCurrentMeetingStore()
-await callOnce(meetingData.fetch)
+const weekend = useWeekendStatusStore()
+const weekendStatus = weekend.weekendStatus
 
 
-const race = meetingData.currentMeeting?.race
-const timetable = meetingData.currentMeeting?.seasonContext?.timetables || []
+const race = weekendStatus.race
+const timetable = weekendStatus.seasonContext?.timetables || []
 
 let nextSessions
 
@@ -42,9 +41,19 @@ function formatDateStable(dateStr: string) {
   return `${day} ${monthShort}`
 }
 
-const mainTitle = meetingData.currentMeeting?.meetingContext.status
+const mainTitleState = weekendStatus.weekendStatus.state
+let mainTitle = ""
+if(mainTitleState === "weekend_not_started") {
+  mainTitle = `Next - ${race.meetingName}`
+}else {
+  if (mainTitleState === "weekend_not_started") {
+    mainTitle = `Ongoing - ${race.meetingName}`
+  } else {
+    mainTitle = `Last - ${race.meetingName}`
+  }
+}
 const subTitle = race
-    ? `R${meetingData.currentMeeting?.meetingContext.nr_runda} • ${race.meetingLocation}, ${race.meetingCountryName}`
+    ? `R${race.meetingNumber} • ${race.meetingLocation}, ${race.meetingCountryName}`
     : ""
 
 const slugify = (str: string) =>
@@ -141,7 +150,7 @@ const slugify = (str: string) =>
 
     <!-- RIGHT SIDE IMAGE -->
     <NuxtImg
-        :src="meetingData.currentMeeting?.circuitSmallImage.url"
+        :src="weekendStatus?.circuitSmallImage.url"
     />
   </UPageCard>
 </template>
