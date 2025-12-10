@@ -15,7 +15,7 @@ export const useLastRaceDataStore = defineStore('lastRaceData', {
                     return
                 }
 
-                const meetingYear = weekendStatus.race.year
+                const meetingYear = weekendStatus.season
                 const firebaseIdentifier = `${weekendStatus.fomRaceId}_${weekendStatus.race.meetingName.replaceAll(" ", "-").toLowerCase()}`
 
                 const url = `${runtimeConfig.public.apiBase}/season-results/homepage/${meetingYear}/${firebaseIdentifier}`
