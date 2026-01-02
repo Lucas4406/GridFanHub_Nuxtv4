@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "grid-fan-hub-nuxtv4",
+  "main": "./dist/server/index.mjs",
+  "compatibility_date": "2026-01-02",
+  "assets": {
+    "directory": "./dist/public/",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_id": "a363b9af-4885-430d-b365-4ff7c4c2f2fe"
+    }
+  ]
+}

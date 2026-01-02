@@ -1,6 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+    compatibilityDate: "2026-01-02",
+    nitro: {
+        preset: "cloudflare_module",
+        cloudflare: {
+            deployConfig: true,
+            nodeCompat: true
+        }
+    },
   devtools: { enabled: true },
   modules: [
     '@pinia/nuxt',
