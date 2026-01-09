@@ -3,8 +3,8 @@
     <UPageBody>
       <UContainer>
         <UPageGrid>
-          <NextRaceHero class="lg:col-span-2" sessionShowNumber="3" :onlyNextSessions="true" v-if="weekendStatus.seasonTracker.next" />
-          <LapsStatistic />
+          <NextRaceHero class="lg:col-span-2" sessionShowNumber="3" :onlyNextSessions="true" v-if="weekendStatus.seasonTracker.next && !weekendStatus.error" />
+          <LapsStatistic v-if="!weekendStatus.error" />
         </UPageGrid>
       </UContainer>
       <UContainer>
@@ -49,10 +49,12 @@ const start = new Date(weekendStatus.currentMeeting?.race.meetingStartDate)
 const minus24h = new Date(start.getTime() - 24 * 60 * 60 * 1000)
 
 if(weekendStatus?.weekendStatus.state === "weekend_not_started" || weekendStatus?.weekendStatus.state === "weekend_completed"){
-  console.log("Showing last race data")
-  isLastRace.value = true
-  await callOnce(lastRaceStore.fetch)
-  lastRaceLink.value = `/results/${lastRaceStore.lastRaceData.year}/${slugify(lastRaceStore.lastRaceData.meeting.meetingName)}/race`
+  if (weekendStatus.seasonTracker.previous){
+    console.log("Showing last race data")
+    isLastRace.value = true
+    await callOnce(lastRaceStore.fetch)
+    lastRaceLink.value = `/results/${lastRaceStore.lastRaceData.year}/${slugify(lastRaceStore.lastRaceData.meeting.meetingName)}/race`
+  }
 }else{
   if(minus24h > new Date()){
     console.log("Showing last race data")

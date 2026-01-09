@@ -1,6 +1,6 @@
 export const useSeasonStore = defineStore('season', {
     state: () => ({
-        seasonYear: 2025 as number
+        seasonYear: 2026 as number
     }),
 
     actions: {
