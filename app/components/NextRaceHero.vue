@@ -150,7 +150,7 @@ const slugify = (str: string) =>
 
     <!-- RIGHT SIDE IMAGE -->
     <NuxtImg
-        :src="weekendStatus?.circuitSmallImage.url"
+        :src="weekendStatus?.weekendStatus?.next?.circuitSmallImage"
     />
   </UPageCard>
 </template>
