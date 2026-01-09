@@ -4,7 +4,7 @@
       <UContainer>
         <UPageGrid>
           <NextRaceHero class="lg:col-span-2" sessionShowNumber="3" :onlyNextSessions="true" v-if="weekendStatus.seasonTracker.next && !weekendStatus.error" />
-          <LapsStatistic v-if="!weekendStatus.error" />
+          <LapsStatistic v-if="weekendStatus.seasonStatus !== 'season_not_started'" />
         </UPageGrid>
       </UContainer>
       <UContainer>
