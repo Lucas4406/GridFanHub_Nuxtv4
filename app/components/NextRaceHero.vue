@@ -42,7 +42,7 @@ function formatDateStable(dateStr: string) {
 }
 
 const mainTitleState = weekendStatus.weekendStatus.state
-let mainTitle = ""
+let mainTitle
 if(mainTitleState === "weekend_not_started") {
   mainTitle = `Next - ${race.meetingName}`
 }else {

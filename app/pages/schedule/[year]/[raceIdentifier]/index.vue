@@ -2,9 +2,10 @@
 const route = useRoute()
 const raceIdentifier = route.params.raceIdentifier as string
 const runtimeConfig = useRuntimeConfig()
+const seasonYear = route.params.year as string
 const { data: meetingData } = await useFetch(`${runtimeConfig.public.apiBase}/api-events-f/mongo/view?name=${raceIdentifier}`)
 const meetingKey = meetingData.value.meetingKey as string
-const { data: fullMeetingData } = await useFetch(`${runtimeConfig.public.apiBase}/api-calendar-f/meetings/${meetingKey}`)
+const { data: fullMeetingData } = await useFetch(`${runtimeConfig.public.apiBase}/api-calendar-f/meetings/${meetingKey}?season=${seasonYear}`)
 
 const timetables = fullMeetingData.value?.race?.meetingSessions
 
