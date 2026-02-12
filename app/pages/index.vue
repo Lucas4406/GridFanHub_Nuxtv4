@@ -45,7 +45,7 @@ const slugify = (str: string) =>
     str.trim().toLowerCase().split(/\s+/).join('-');
 
 const lastRaceStore = useLastRaceDataStore()
-const start = new Date(weekendStatus.currentMeeting?.race.meetingStartDate)
+const start = new Date(weekendStatus.seasonTracker?.current.meetingStartDate)
 const minus24h = new Date(start.getTime() - 24 * 60 * 60 * 1000)
 
 if(weekendStatus?.weekendStatus.state === "weekend_not_started" || weekendStatus?.weekendStatus.state === "weekend_completed"){
