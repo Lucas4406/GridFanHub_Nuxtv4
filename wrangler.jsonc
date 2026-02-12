@@ -3,6 +3,9 @@
   "name": "grid-fan-hub-nuxtv4",
   "main": "./dist/server/index.mjs",
   "compatibility_date": "2026-01-02",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "assets": {
     "directory": "./dist/public/",
     "binding": "ASSETS"
