@@ -1,30 +1,55 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 
-const { sessionShowNumber, onlyNextSessions } = defineProps<{
-  sessionShowNumber: String,
-  onlyNextSessions: Boolean
+const props = defineProps<{
+  sessionShowNumber?: string | number,
+  onlyNextSessions?: boolean
 }>()
 
-const weekend = useWeekendStatusStore()
-const weekendStatus = weekend.weekendStatus
+const weekendStore = useWeekendStatusStore()
+const data = computed(() => weekendStore.weekendStatus)
 
+const timetable = computed(() => data.value?.race?.meetingSessions || [])
 
-const race = weekendStatus.race
-const timetable = weekendStatus.seasonContext?.timetables || []
+// 2. Filtrarea sesiunilor: includem și "isCurrent" pentru a vedea ziua de test în desfășurare
+const displaySessions = computed(() => {
+  const sessions = timetable.value
 
-let nextSessions
+  if (props.onlyNextSessions) {
+    // Includem sesiunea curentă + cele viitoare
+    return sessions
+        .filter(s => s.status === "isNext" || s.status === "isCurrent")
+        .slice(0, Number(props.sessionShowNumber) || 3)
+  }
+  return sessions
+})
 
+const state = computed(() => data.value?.weekendStatus?.state)
+const race = computed(() => data.value?.race)
 
-// Primele 3 sesiuni viitoare
-if(onlyNextSessions){
-  nextSessions = timetable.filter(s => s.status === "isNext").slice(0, Number(sessionShowNumber) || 3)
-}else{
-  nextSessions = timetable
-}
+// Titlu dinamic: Scoatem "R0" dacă este Pre-season testing
+const mainTitle = computed(() => {
+  if (!race.value) return "Loading..."
+  const prefix = (state.value === 'session_in_progress' || state.value === 'between_sessions') ? 'Now' :
+      (state.value === 'weekend_not_started') ? 'Next' : 'Last'
 
-function formatDate(dateStr: string) {
-  const d = new Date(dateStr)
-  return d.toLocaleString(undefined, {
+  return `${prefix} - ${race.value.meetingName}`
+})
+
+const subTitle = computed(() => {
+  if (!race.value) return ""
+  // Dacă meetingNumber e 0 sau lipsește (cazul testelor), nu afișăm "R0"
+  const round = race.value.meetingNumber && race.value.meetingNumber !== "0"
+      ? `R${race.value.meetingNumber} • `
+      : ""
+  return `${round}${race.value.meetingLocation}, ${race.value.circuitShortName}`
+})
+
+function formatDate(dateStr: string, gmtOffset: string = "+00:00") {
+  // Curățăm offset-ul dacă vine dublat sau lipsește
+  const cleanDate = dateStr.includes('Z') || dateStr.includes('+') ? dateStr : `${dateStr}${gmtOffset}`
+  const d = new Date(cleanDate)
+  return d.toLocaleString('en-GB', {
     weekday: "short",
     hour: "2-digit",
     minute: "2-digit",
@@ -32,126 +57,75 @@ function formatDate(dateStr: string) {
 }
 
 function formatDateStable(dateStr: string) {
+  if (!dateStr) return ""
   const date = new Date(dateStr)
-
-  // manual formatting => identic pe server și client
-  const day = date.getDate()
-  const monthShort = date.toLocaleString("en", { month: "short" }) // asta e OK, e stabilă
-
-  return `${day} ${monthShort}`
+  return `${date.getDate()} ${date.toLocaleString("en", { month: "short" })}`
 }
 
-const mainTitleState = weekendStatus.weekendStatus.state
-let mainTitle
-if(mainTitleState === "weekend_not_started") {
-  mainTitle = `Next - ${race.meetingName}`
-}else {
-  if (mainTitleState === "weekend_not_started") {
-    mainTitle = `Ongoing - ${race.meetingName}`
-  } else {
-    mainTitle = `Last - ${race.meetingName}`
-  }
-}
-const subTitle = race
-    ? `R${race.meetingNumber} • ${race.meetingLocation}, ${race.meetingCountryName}`
-    : ""
-
-const slugify = (str: string) =>
-    str.trim().toLowerCase().split(/\s+/).join('-');
-
-// const lastCompleted = computed(() => {
-//   const t = meetingData.currentMeeting?.seasonContext?.timetables
-//   if (!t) return null
-//
-//   return t.slice().reverse().find(s => s.state === "completed")
-// })
-//
-// console.log(lastCompleted.value)
-//
-// const currentEventsLinks = useCurrentEventsLinksStore()
-// await callOnce(async () => {
-//   if (meetingData.currentMeeting?.fomRaceId) {
-//     await currentEventsLinks.fetch(meetingData.currentMeeting?.fomRaceId)
-//   }
-// })
-//
-// let lastEventLink
-//
-// currentEventsLinks.currentEventLinks.map(event => {
-//   if(event.text === lastCompleted.value.description){
-//     lastEventLink = event.value
-//   }
-// })
-//
-// let lastEventData
-//
-// if(lastEventLink){
-//   try {
-//     const { data: res } = await useFetch(`${runtimeConfig.public.cloudflareProxyBase}/v2/fom-results/${lastEventLink}`, {
-//       key: "lastEventData"
-//     })
-//     lastEventData = res.value
-//   } catch (e) {
-//     console.error("Failed to fetch last event data:", e)
-//   }
-// }
-//
-//
-// console.log("lastEventLink:", lastEventLink)
-// console.log("lastEventData raw:", lastEventData)
-//
-// function extractRaceResults(data: any) {
-//   if (!data) return null
-//   return Object.values(data).find(v => v?.session)
-// }
-//
-// const topThreeLastSession = extractRaceResults(lastEventData)
-//
-// console.log(topThreeLastSession)
-
+const slugify = (str: string) => str ? str.trim().toLowerCase().split(/\s+/).join('-') : '';
 </script>
 
 <template>
   <UPageCard
+      v-if="race"
       orientation="horizontal"
       variant="soft"
       highlight
       highlight-color="primary"
       :to="`/schedule/${new Date(race.meetingStartDate).getFullYear()}/${slugify(race.meetingName)}`"
   >
-    <!-- LEFT SIDE -->
+    <NuxtImg
+        v-if="data.seasonTracker.current.circuitSmallImage"
+        :src="data.seasonTracker.current.circuitSmallImage"
+        :alt="race.circuitShortName"
+    />
     <template #body>
       <div class="p-4 flex flex-col gap-3">
 
-        <!-- Title -->
-        <h2 class="text-2xl font-bold">{{ mainTitle }}</h2>
-        <p class="text-lg opacity-80">{{ subTitle }}</p>
+        <div>
+          <h2 class="text-2xl font-bold">{{ mainTitle }}</h2>
+          <p class="text-lg opacity-80">{{ subTitle }}</p>
+        </div>
 
         <!-- Dates -->
         <p class="text-sm opacity-70">
-          {{ formatDateStable(race?.meetingStartDate) }}
+          {{ formatDateStable(data.seasonTracker?.current?.meetingStartDate) }}
           –
-          {{ formatDateStable(race?.meetingEndDate) }}
+          {{ formatDateStable(data.seasonTracker?.current?.meetingEndDate) }}
         </p>
 
-        <!-- Next sessions -->
-        <div class="mt-2 space-y-1">
-          <h3 class="text-md font-semibold opacity-70" v-if="nextSessions.length > 0">Upcoming sessions</h3>
-          <h3 class="text-md font-semibold opacity-70" v-else>Weekend Finished</h3>
+        <div class="mt-2 space-y-1 border-t border-gray-500/20 pt-3">
+          <h3 class="text-xs uppercase tracking-wider font-bold opacity-50 mb-2">
+            {{ state === 'weekend_completed' ? 'Results' : 'Schedule' }}
+          </h3>
 
-          <div v-for="s in nextSessions" :key="s.session" class="flex justify-between text-md">
-            <span class="font-medium">{{ s.shortName }}</span>
-            <span class="opacity-70">{{ formatDate(s.startTime + s.gmtOffset) }}</span>
+          <div v-if="displaySessions.length > 0" class="space-y-2">
+            <div v-for="s in displaySessions" :key="s.meetingSessionKey"
+                 class="flex justify-between text-sm items-center"
+                 :class="{'text-primary-500 font-bold': s.status === 'isCurrent'}"
+            >
+              <div class="flex items-center gap-2">
+                <span v-if="s.status === 'isCurrent'" class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+                </span>
+
+                <span>{{ s.shortName }}</span>
+                <span v-if="s.description && s.shortName.includes('Day')" class="text-xs opacity-50 font-normal italic">
+                   ({{ s.description }})
+                </span>
+              </div>
+
+              <span class="opacity-70 tabular-nums">
+                {{ formatDate(s.startTime, s.gmtOffset) }}
+              </span>
+            </div>
           </div>
+          <p v-else class="text-sm opacity-60 italic">No more sessions today.</p>
         </div>
 
       </div>
     </template>
-
-    <!-- RIGHT SIDE IMAGE -->
-    <NuxtImg
-        :src="weekendStatus?.weekendStatus?.next?.circuitSmallImage"
-    />
   </UPageCard>
 </template>
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-const runtimeConfig = useRuntimeConfig()
-const { data } = await useFetch(`${runtimeConfig.public.apiBase}/laps-statistics`)
-
 const season = useSeasonStore()
+const runtimeConfig = useRuntimeConfig()
+const { data } = await useFetch(`${runtimeConfig.public.apiBase}/laps-statistics?season=${season.seasonYear}`)
+
 
 
 const progressValue = ref(Number(data.value?.lapsProgress.replace('%', '')))
